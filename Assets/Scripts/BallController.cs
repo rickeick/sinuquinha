@@ -12,8 +12,8 @@ public class BallController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (rb.velocity.magnitude > 0.1f) {
-            rb.velocity *= 0.999f;
+        if (rb.velocity.magnitude > 0.5f) {
+            rb.velocity *= 0.99f;
         } else {
             rb.velocity = Vector3.zero;
         }
