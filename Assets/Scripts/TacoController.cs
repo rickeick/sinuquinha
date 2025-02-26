@@ -7,7 +7,7 @@ public class TacoController : MonoBehaviour
     private Rigidbody bola;
     private Vector3 posicaoInicial;
     private float velocidade = 15f;
-    private float distancia = 30f;
+    private float distancia = 25f;
     public float intensidade = 0f;
 
     void Start()
@@ -32,8 +32,9 @@ public class TacoController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
+            gameObject.SetActive(false);
             while (transform.localPosition.z > posicaoInicial.z - distancia) {
-                transform.Translate(Vector3.forward * velocidade*10f * Time.deltaTime);
+                transform.Translate(Vector3.forward * velocidade * 10f * Time.deltaTime);
             }
             bola.AddForce(transform.forward.normalized * intensidade, ForceMode.Impulse);
             transform.localPosition = posicaoInicial;
