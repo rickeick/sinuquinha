@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        pontuacao = new int[2];
         lista = new List<Rigidbody>();
         taco = GameObject.Find("Taco");
         bolas = GameObject.Find("Bolas").transform;
@@ -42,25 +43,33 @@ public class GameController : MonoBehaviour
     bool pararam()
     {
         bool teste = true;
-        List<Rigidbody> remover = new List<Rigidbody>();
+        List<Rigidbody> acertos = new List<Rigidbody>();
         foreach (Rigidbody rb in lista)
         {
             if (rb.isKinematic) 
             {
-                remover.Add(rb);
+                acertos.Add(rb);
             }
             if (rb.velocity.magnitude > 1f)
             {
                 teste = false;
             }
         }
-        if (remover.Count > 0)
+        if (acertos.Count > 0)
         {
-            trocar = false;
-            pontuacao[jogador] += remover.Count;
-            foreach (Rigidbody rb in remover)
+            foreach (Rigidbody rb in acertos)
             {
-                lista.Remove(rb);
+                if (rb.gameObject.name == "0")
+                {
+                    trocar = true;
+                    rb.isKinematic = false;
+                }
+                else
+                {
+                    trocar = false;
+                    lista.Remove(rb);
+                    pontuacao[jogador] += 1;
+                }
             }
         }
         return teste;

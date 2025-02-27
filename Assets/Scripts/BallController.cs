@@ -50,5 +50,6 @@ public class BallController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         transform.localPosition = new Vector3(-1f, 2.5f, -31f);
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
     }
 }
