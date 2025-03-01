@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    public AudioSource audioSource;
+
     private Rigidbody rb;
 
     void Start()

@@ -9,6 +9,7 @@ public class TacoController : MonoBehaviour
     private float velocidade = 15f;
     private float distancia = 25f;
     public float intensidade = 0f;
+    public AudioSource audioSource; // som de taco na bola branca
 
     void Start()
     {
@@ -37,6 +38,7 @@ public class TacoController : MonoBehaviour
                 transform.Translate(Vector3.forward * velocidade * 10f * Time.deltaTime);
             }
             bola.AddForce(transform.forward.normalized * intensidade, ForceMode.Impulse);
+            audioSource.PlayOneShot(audioSource.clip, 1f); // reproduz som
             transform.localPosition = posicaoInicial;
             intensidade = 0f;
         }
