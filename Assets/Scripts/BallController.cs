@@ -49,9 +49,10 @@ public class BallController : MonoBehaviour
     IEnumerator restaurar()
     {
         yield return new WaitForSeconds(3);
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
         transform.localPosition = new Vector3(-1f, 2.5f, -31f);
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
+        yield return new WaitForSeconds(1);
+        rb.constraints |= RigidbodyConstraints.FreezePositionY;
     }
 }

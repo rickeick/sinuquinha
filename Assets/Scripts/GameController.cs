@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     private Transform bolas;
     private List<Rigidbody> lista;
     private bool trocar = true;
-    public int jogador = 1;
+    public int jogador = 0;
     public int[] pontuacao;
 
     void Start()
@@ -38,6 +38,14 @@ public class GameController : MonoBehaviour
             }
             trocar = true;
         }
+        if (lista.Count == 1) {
+            if (pontuacao[0] < pontuacao[1]) {
+                Debug.Log("Jogador Número 1 Ganhou!");
+            } else {
+                Debug.Log("Jogador Número 2 Ganhou!");
+            }
+            Time.timeScale = 0f;
+        }
     }
 
     bool pararam()
@@ -57,6 +65,7 @@ public class GameController : MonoBehaviour
         }
         if (acertos.Count > 0)
         {
+            trocar = false;
             foreach (Rigidbody rb in acertos)
             {
                 if (rb.gameObject.name == "0")
@@ -66,7 +75,6 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    trocar = false;
                     lista.Remove(rb);
                     pontuacao[jogador] += 1;
                 }
