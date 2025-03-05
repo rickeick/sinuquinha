@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    public TMP_Text player1Text; // Reference for Player 1's text
     private GameObject taco;
     private Transform bolas;
     private List<Rigidbody> lista;
@@ -17,8 +19,18 @@ public class GameController : MonoBehaviour
         jogador = 1;
         pontuacao = new int[2];
         lista = new List<Rigidbody>();
+        
+        // Encontrar objetos
         taco = GameObject.Find("Taco");
         bolas = GameObject.Find("Bolas").transform;
+        player1Text = GameObject.Find("player1Txt").GetComponent<TMP_Text>();
+        
+        if (taco == null || bolas == null || player1Text == null)
+        {
+            Debug.LogError("Objeto Taco, Bolas ou texto não encontrado.");
+        }
+        
+        // Popula a lista de rigidbodies
         foreach (Transform filho in bolas)
         {
             Rigidbody rb = filho.GetComponent<Rigidbody>();
@@ -26,22 +38,39 @@ public class GameController : MonoBehaviour
             {
                 lista.Add(rb);
             }
+            else
+            {
+                Debug.LogError($"Rigidbody não encontrado em {filho.name}");
+            }
         }
     }
 
     void Update()
     {
-        if (pararam() && Input.GetKeyUp(KeyCode.W)){
-            taco.SetActive(true);
-            Debug.Log("trocar: " + trocar);
-            if (trocar)
-            {
-                Debug.Log("jogador: " + jogador);
-                jogador = jogador ^ 1;
-                Debug.Log("jogador da vez: " + jogador);
-            }
-            trocar = true;
+        if (player1Text != null)
+        {
+            if(jogador == 0)
+                player1Text.text = $"=>PLAYER1:{pontuacao[0]} PLAYER2:{pontuacao[1]}";
+            else
+                player1Text.text = $"PLAYER1:{pontuacao[0]}  =>PLAYER2:{pontuacao[1]}";
+
         }
+        if (pararam() && Input.GetKeyUp(KeyCode.W)){
+            if (taco != null)
+            {
+                taco.SetActive(true);
+                Debug.Log("trocar: " + trocar);
+                if (trocar)
+                {
+                    Debug.Log("jogador: " + jogador);
+                    jogador = jogador ^ 1;
+                    Debug.Log("jogador da vez: " + jogador);
+                    
+                }
+                trocar = true;
+            }
+        }
+        
         if (lista.Count == 1) {
             if (pontuacao[0] < pontuacao[1]) {
                 Debug.Log("Jogador Número 2 Ganhou!");
@@ -50,7 +79,6 @@ public class GameController : MonoBehaviour
                 Debug.Log("Jogador Número 1 Ganhou!");
                 SceneManager.LoadScene("Player1Win");
             }
-            //Time.timeScale = 0f;
         }
     }
 
@@ -75,7 +103,14 @@ public class GameController : MonoBehaviour
                 else
                 {
                     lista.Remove(rb);
-                    pontuacao[jogador] += 1;
+                    if (jogador == 0)
+                    {
+                        pontuacao[0] += 1;
+                    }
+                    else
+                    {
+                        pontuacao[1] += 1;
+                    }
                 }
             }
         }
