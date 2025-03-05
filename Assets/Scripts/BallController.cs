@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public AudioSource audioSource;
+    public AudioClip cacapaAudio;
 
     private Rigidbody rb;
 
@@ -40,7 +41,10 @@ public class BallController : MonoBehaviour
 
     IEnumerator desabilitar()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
+        //fazer som aqui
+        audioSource.PlayOneShot(cacapaAudio, 1.0f);
+        yield return new WaitForSeconds(2);
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
@@ -49,6 +53,8 @@ public class BallController : MonoBehaviour
     IEnumerator restaurar()
     {
         yield return new WaitForSeconds(3);
+        //fazer som aqui
+        audioSource.PlayOneShot(cacapaAudio, 1.0f);
         transform.localPosition = new Vector3(-1f, 2.5f, -31f);
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
