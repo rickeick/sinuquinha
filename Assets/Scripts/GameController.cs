@@ -11,12 +11,12 @@ public class GameController : MonoBehaviour
     private Transform bolas;
     private List<Rigidbody> lista;
     private bool trocar = true;
-    public int jogador;
     public int[] pontuacao;
+    public int jogador;
 
     void Start()
     {
-        jogador = 1;
+        jogador = 0;
         pontuacao = new int[2];
         lista = new List<Rigidbody>();
         
@@ -52,10 +52,11 @@ public class GameController : MonoBehaviour
             if(jogador == 0)
                 player1Text.text = $"=>PLAYER1:{pontuacao[0]} PLAYER2:{pontuacao[1]}";
             else
-                player1Text.text = $"PLAYER1:{pontuacao[0]}  =>PLAYER2:{pontuacao[1]}";
+                player1Text.text = $"PLAYER1:{pontuacao[0]} =>PLAYER2:{pontuacao[1]}";
 
         }
-        if (pararam() && Input.GetKeyUp(KeyCode.W)){
+        if (pararam() && Input.GetKeyUp(KeyCode.W))
+        {
             if (taco != null)
             {
                 taco.SetActive(true);
@@ -71,14 +72,15 @@ public class GameController : MonoBehaviour
             }
         }
         
-        if (lista.Count == 1) {
-            if (pontuacao[0] < pontuacao[1]) {
-                Debug.Log("Jogador Número 2 Ganhou!");
-                SceneManager.LoadScene("Player2Win");
-            } else {
-                Debug.Log("Jogador Número 1 Ganhou!");
-                SceneManager.LoadScene("Player1Win");
-            }
+        if (pontuacao[0] >= 8)
+        {
+            Debug.Log("Jogador Número 1 Ganhou!");
+            SceneManager.LoadScene("Player1Win");
+        }
+        if (pontuacao[1] >= 8)
+        {
+            Debug.Log("Jogador Número 2 Ganhou!");
+            SceneManager.LoadScene("Player2Win");
         }
     }
 
@@ -97,20 +99,13 @@ public class GameController : MonoBehaviour
             trocar = false;
             foreach (Rigidbody rb in acertos){
                 if (rb.gameObject.name == "0"){
-                    trocar = true;
                     rb.isKinematic = false;
+                    trocar = true;
                 }
                 else
                 {
                     lista.Remove(rb);
-                    if (jogador == 0)
-                    {
-                        pontuacao[0] += 1;
-                    }
-                    else
-                    {
-                        pontuacao[1] += 1;
-                    }
+                    pontuacao[jogador] += 1;
                 }
             }
         }
