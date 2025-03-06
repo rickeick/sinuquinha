@@ -3248,7 +3248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionAudio: {fileID: 8300000, guid: cf326c82e9ab0b048b87377fefcd59ac, type: 3}
-  cacapaAudio: {fileID: 0}
+  cacapaAudio: {fileID: 8300000, guid: a7efbf34216ceed43bb83477788d6827, type: 3}
 --- !u!1 &935401738217406587
 GameObject:
   m_ObjectHideFlags: 0
