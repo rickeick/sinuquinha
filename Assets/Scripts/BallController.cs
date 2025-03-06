@@ -41,10 +41,10 @@ public class BallController : MonoBehaviour
 
     IEnumerator desabilitar()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         //fazer som aqui
         audioSource.PlayOneShot(cacapaAudio, 1.0f);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
@@ -52,9 +52,10 @@ public class BallController : MonoBehaviour
 
     IEnumerator restaurar()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         //fazer som aqui
         audioSource.PlayOneShot(cacapaAudio, 1.0f);
+        yield return new WaitForSeconds(1);
         transform.localPosition = new Vector3(-1f, 2.5f, -31f);
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
