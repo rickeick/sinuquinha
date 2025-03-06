@@ -21,7 +21,7 @@ public class load_controller : MonoBehaviour
         float fakeProgress = 0f; // Start from 0
         while (!operation.isDone){
             // Simulate a smooth progress bar filling
-            fakeProgress += Time.deltaTime * 0.3f; // Adjust speed as needed
+            fakeProgress += Time.deltaTime * 0.07f; // Adjust speed as needed
             fakeProgress = Mathf.Min(fakeProgress, operation.progress / 0.9f); // Clamp to real progress
             
             progressBar.value = fakeProgress;
